@@ -1,6 +1,6 @@
 const { Octokit } = require('@octokit/rest');
 const octokit = new Octokit({
-    auth: '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',
+    auth: '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',
 });
 
 const owner = 'tomztz';
