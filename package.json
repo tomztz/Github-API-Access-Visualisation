@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@octokit/core": "^3.5.1",
     "@octokit/rest": "^18.12.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
