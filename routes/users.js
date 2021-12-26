@@ -1,10 +1,10 @@
 var express = require('express');
-const fs = require('fs');
 var router = express.Router();
 const { Octokit } = require('@octokit/core');
 const octokit = new Octokit({
-    auth: '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',
+    auth: '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',
 });
+
 
 const owner = 'tomztz';
 const repo = 'Java-Projects';
@@ -25,29 +25,51 @@ const getContents = async () => {
 }
 
 const getCommits = async () => {
-    
+    const { Octokit } = require('@octokit/core');
+const octokit = new Octokit({
+    auth: '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',
+});
+
     const { data } = await octokit.request('GET /repos/{owner}/{repo}/commits', {
         owner: 'tomztz',
         repo: 'Java-Projects'
       });
-      console.log(data);
+      
       return data;
 }
 
-
-
+const getTotalCommits = async () =>{
+    var data = await getCommits();
+    var shaCount = 0;
+    arr = JSON.parse(JSON.stringify(data));//json
+    arr.map(function(val){
+      if(val.sha) {
+      shaCount++ 
+  }
+});
+    console.log(shaCount);
+    return shaCount;
+}
 
 /* GET users listing. */
 router.get('/', async(req, res, next) => {
-  result =  await getCommits();
-  result1 = await getContents();
-  res.send(JSON.stringify(result)).then(res.send(JSON.stringify(result1)));
-  //res.setHeader('Content-Type', 'application/json');
-  //res.json(result);
+    
+  
+    //result = await getTotalCommits();
+    result =  await getCommits();  
+    res.setHeader('Content-Type', 'application/json');
+    res.json(result);
+   
+    //res.send(JSON.stringify(result));
+  
+  
   
   
 
     
 });
 
-module.exports = router;
+module.exports = {  router : router,
+                    commits : getCommits,
+                    contents : getContents,
+                    number : getTotalCommits}
