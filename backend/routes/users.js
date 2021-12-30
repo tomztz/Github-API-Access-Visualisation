@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const { Octokit } = require('@octokit/core');
 const octokit = new Octokit({
-    auth: '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',
+    auth: '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',
 });
 
 
@@ -25,11 +25,7 @@ const getContents = async () => {
 }
 
 const getCommits = async () => {
-    const { Octokit } = require('@octokit/core');
-const octokit = new Octokit({
-    auth: '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',
-});
-
+    
     const { data } = await octokit.request('GET /repos/{owner}/{repo}/commits', {
         owner: 'tomztz',
         repo: 'Java-Projects'
@@ -55,10 +51,10 @@ const getTotalCommits = async () =>{
 router.get('/', async(req, res, next) => {
     
   
-    //result = await getTotalCommits();
-    result =  await getCommits();  
+    result = await getTotalCommits(); 
+    //res.send("Total commits are "+result);
     res.setHeader('Content-Type', 'application/json');
-    res.json(result);
+    res.json({commits: result});
    
     //res.send(JSON.stringify(result));
   
