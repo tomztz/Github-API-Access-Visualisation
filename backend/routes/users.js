@@ -4,7 +4,7 @@ const { Octokit } = require('@octokit/core');
 const fs = require('fs');
 const csv = require('csv-parser');
 const octokit = new Octokit({
-    auth: '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',
+    auth: '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',
 });
 
 
@@ -96,7 +96,11 @@ const getTotalCommitsByUsers = async(user) =>{
 //WARNING: since every request has only one response, please make sure you are sending one res.method
 //i.e. commenting out the unwanted parts to avoid sending multiple response.
 router.get('/', async(req, res, next) => {  
-    
+    //uncomment to check all commits in JSON
+    /*
+    var result = await getCommits();    
+    res.send(JSON.stringify(result));
+    */
     var result = await getTotalCommits(); 
     var result1 = await getTotalCommitsByDate('2021-04-01T00:00:00Z','2021-04-05T23:59:59Z');
     var result2 = await getTotalCommitsByDate('2021-04-05T00:00:00Z','2021-04-10T23:59:59Z');
@@ -153,4 +157,8 @@ router.get('/', async(req, res, next) => {
 module.exports = {  router : router,
                     commits : getCommits,
                     contents : getContents,
-                    number : getTotalCommits}
+                    number : getTotalCommits,
+                    commitsByDate: getCommitsByDate,
+                    totalCommitsByDate:getTotalCommitsByDate,
+                    commitsByUsers: getCommitsByUsers,
+                    totalCommitsByUsers:getTotalCommitsByUsers  }
