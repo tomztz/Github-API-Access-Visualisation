@@ -4,7 +4,7 @@ const { Octokit } = require('@octokit/core');
 const fs = require('fs');
 const csv = require('csv-parser');
 const octokit = new Octokit({
-    auth: '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',
+    auth: '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',
 });
 
 
@@ -126,7 +126,8 @@ router.get('/', async(req, res, next) => {
        {date:'04/20/2021',value : result5}
        ]);*/
     
-    //The bellow code provides a csv file as data neccessary for the line chart
+    //The bellow code provides a csv file as data neccessary for the line chart to work
+    
     var csv = "date,commits\r\n"+arr[0].date+","+arr[0].value+"\r\n"+arr[1].date+","+arr[1].value
     +"\r\n"+arr[2].date+","+arr[2].value+"\r\n"+arr[3].date+","+arr[3].value+
     "\r\n"+arr[4].date+","+arr[4].value;
@@ -135,8 +136,7 @@ router.get('/', async(req, res, next) => {
     fs.writeFileSync("data.csv", csv);
     res.sendFile("C:/Github-API-Access-Visualisation/backend/data.csv");
 
-    //Uncomment the bellow code to update the csv file showing percentages of commits each 
-    //student made during the project
+    //Uncomment the bellow code to update the csv file which is necessary for the pir chart to work
     /*
     var commit1 = await getTotalCommitsByUsers('AAjayiB');
     var perc1 = (commit1/result)*100 ;
