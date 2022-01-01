@@ -4,7 +4,7 @@ const { Octokit } = require('@octokit/core');
 const fs = require('fs');
 const csv = require('csv-parser');
 const octokit = new Octokit({
-    auth: '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',
+    auth: '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',
 });
 
 
@@ -97,11 +97,12 @@ const getTotalCommitsByUsers = async(user) =>{
 //i.e. commenting out the unwanted parts to avoid sending multiple response.
 router.get('/', async(req, res, next) => {  
     //uncomment to check all commits in JSON
-    /*
+/*
     var result = await getCommits();    
-    res.send(JSON.stringify(result));
-    */
-    var result = await getTotalCommits(); 
+    res.send(JSON.stringify(result));*/
+//-------------------------------------------------------------------------------------------------    
+//The bellow code provides a csv file as data neccessary for the line chart to work
+     
     var result1 = await getTotalCommitsByDate('2021-04-01T00:00:00Z','2021-04-05T23:59:59Z');
     var result2 = await getTotalCommitsByDate('2021-04-05T00:00:00Z','2021-04-10T23:59:59Z');
     var result3 = await getTotalCommitsByDate('2021-04-10T00:00:00Z','2021-04-15T23:59:59Z');
@@ -114,7 +115,18 @@ router.get('/', async(req, res, next) => {
        {date:'04/10/2021',value : result3},
        {date:'04/15/2021',value : result4},
        {date:'04/20/2021',value : result5}
-       ]; 
+       ];     
+    
+    
+    var csv = "date,commits\r\n"+arr[0].date+","+arr[0].value+"\r\n"+arr[1].date+","+arr[1].value
+    +"\r\n"+arr[2].date+","+arr[2].value+"\r\n"+arr[3].date+","+arr[3].value+
+    "\r\n"+arr[4].date+","+arr[4].value;
+
+
+    
+    fs.writeFileSync("data.csv", csv);
+    res.sendFile("C:/Github-API-Access-Visualisation/backend/data.csv");
+ //-----------------------------------------------------------------------------------------   
     //uncomment the below code to see data in JSON formatt
     /*   
     res.setHeader('Content-Type', 'application/json');
@@ -125,19 +137,10 @@ router.get('/', async(req, res, next) => {
        {date:'04/15/2021',value : result4},
        {date:'04/20/2021',value : result5}
        ]);*/
-    
-    //The bellow code provides a csv file as data neccessary for the line chart to work
-    
-    var csv = "date,commits\r\n"+arr[0].date+","+arr[0].value+"\r\n"+arr[1].date+","+arr[1].value
-    +"\r\n"+arr[2].date+","+arr[2].value+"\r\n"+arr[3].date+","+arr[3].value+
-    "\r\n"+arr[4].date+","+arr[4].value;
-
-
-    fs.writeFileSync("data.csv", csv);
-    res.sendFile("C:/Github-API-Access-Visualisation/backend/data.csv");
-
+//-------------------------------------------------------------------------------------------------       
     //Uncomment the bellow code to update the csv file which is necessary for the pir chart to work
     /*
+    var result = await getTotalCommits();
     var commit1 = await getTotalCommitsByUsers('AAjayiB');
     var perc1 = (commit1/result)*100 ;
     var commit2 = await getTotalCommitsByUsers('tomztz');
