@@ -59,7 +59,8 @@ The system works as follow: Firstly, node will make a http request to the GitHub
 6. run command:`npm start`
 7. Wait for the browser to open a page at http://localhost:3000
 8. Bellow is the output:
-![Screenshot 2022-01-01 211007](https://user-images.githubusercontent.com/73280812/147860241-fcddfe09-6cb0-448c-afc2-2639e884799f.png)
+<img width="902" alt="Screenshot 2022-01-03 210034" src="https://user-images.githubusercontent.com/73280812/147980147-f81a2b09-fe71-4b8a-b28f-b557062e5db3.png">
+
 
 #### Pie chart showing each members commits over total commits
 1. Go to backend/routes/users.js and edit contents of routers.get, make sure code from `var result = await getTotalCommits();` to `fs.writeFileSync("percentages.csv", csvForPie);res.sendFile("C:/Github-API-Access-Visualisation/backend/percentages.csv");` are uncommented. Also make sure other code that are trying to send to responses are commented out
