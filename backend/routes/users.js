@@ -4,7 +4,7 @@ const { Octokit } = require('@octokit/core');
 const fs = require('fs');
 const csv = require('csv-parser');
 const octokit = new Octokit({
-    auth: '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',
+    auth: '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',
 });
 
 

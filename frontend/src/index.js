@@ -114,14 +114,14 @@ const Chart = () => {
                           <text
                               fill="#666"
                               x={getX(item.date)}
-                              y={getY(item.price) - 20}
+                              y={getY(item.commits) - 20}
                               textAnchor="middle"
                           >
                               {index === activeIndex ? item.price : ""}
                           </text>
                           <circle
                               cx={getX(item.date)}
-                              cy={getY(item.price)}
+                              cy={getY(item.commits)}
                               r={index === activeIndex ? 6 : 4}
                               fill={color}
                               strokeWidth={index === activeIndex ? 2 : 0}
